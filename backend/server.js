@@ -9,14 +9,11 @@ app.use(cors({ origin: "http://localhost:3000" }));
 app.use(express.json());
 
 // ── MongoDB Connection ────────────────────────────────────────────────────────
-const MONGO_URI =
-  "mongodb+srv://premsoni:premsoni@cluster0.a9mhsi3.mongodb.net/templatesDB";
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected Successfully"))
-  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
-
+mongoose.connect(MONGO_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.error("❌ Error:", err));
 // ── Schema & Model ────────────────────────────────────────────────────────────
 // This defines the structure of documents stored in MongoDB
 const templateSchema = new mongoose.Schema(

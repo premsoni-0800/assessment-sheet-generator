@@ -1,4 +1,4 @@
-# AssessSheet – Assessment Sheet Generator
+# Assessment Sheet Generator (React + PDF Export)
 
 ## Quick Start
 

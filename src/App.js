@@ -5,8 +5,7 @@ import LeftPanel from './components/LeftPanel';
 import PreviewDoc from './components/PreviewDoc';
 import { exportToPDF } from './pdfExport';
 
-const BACKEND_URL = 'http://localhost:5001';
-
+const BACKEND_URL = "https://assessment-sheet-generator-production.up.railway.app";
 export default function App() {
   const [step,         setStep]         = useState('editor');
   const [templateKey,  setTemplateKey]  = useState('DAA');

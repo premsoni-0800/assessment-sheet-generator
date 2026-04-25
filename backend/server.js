@@ -1,3 +1,5 @@
+app.use(cors());
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -5,8 +7,7 @@ const cors = require("cors");
 const app = express();
 
 // ── Middleware ────────────────────────────────────────────────────────────────
-app.use(cors({ origin: "http://localhost:3000" }));
-app.use(express.json());
+app.use(cors());app.use(express.json());
 
 // ── MongoDB Connection ────────────────────────────────────────────────────────
 const MONGO_URI = process.env.MONGO_URI;
@@ -124,7 +125,6 @@ app.delete("/templates/:id", async (req, res) => {
 });
 
 // ── Start Server ──────────────────────────────────────────────────────────────
-const PORT = 5001;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 5001;app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });

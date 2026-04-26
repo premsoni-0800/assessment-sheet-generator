@@ -10,7 +10,7 @@ export default function App() {
   const [step,         setStep]         = useState('editor');
   const [templateKey,  setTemplateKey]  = useState('DAA');
   const [tpl,          setTpl]          = useState({ ...TEMPLATES.DAA });
-  const [studentName,  setStudentName]  = useState('Prem');
+  //const [studentName,  setStudentName]  = useState('Prem');
   const [uid,          setUid]          = useState('24bcs12219');
   const [section,      setSection]      = useState('612 A');
   const [worksheetNo,  setWorksheetNo]  = useState('4');

@@ -16,10 +16,10 @@ export default function App() {
   const [worksheetNo,  setWorksheetNo]  = useState('');
   const [datePerf,     setDatePerf]     = useState('');
   const [sectionContent, setSectionContent] = useState({
-    Aim: 'To determine the minimum number of edge reversals required in a directed graph so that every node can reach node 1.',
+    Aim: '',
     Requirements: 'Hackerrank, CPP compiler',
-    'Procedure/Code': '#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n  ios::sync_with_stdio(false);\n  cin.tie(NULL);\n\n  int N, M;\n  cin >> N >> M;\n\n  vector<vector<pair<int,int>>> graph(N + 1);\n  for (int i = 0; i < M; i++) {\n    int u, v;\n    cin >> u >> v;\n    graph[u].push_back({v, 1});\n    graph[v].push_back({u, 0});\n  }\n\n  vector<bool> visited(N + 1, false);\n  queue<int> q;\n  q.push(1);\n  visited[1] = true;\n  int reversals = 0;\n\n  while (!q.empty()) {\n    int node = q.front(); q.pop();\n    for (auto& [nb, cost] : graph[node]) {\n      if (!visited[nb]) {\n        visited[nb] = true;\n        reversals += cost;\n        q.push(nb);\n      }\n    }\n  }\n\n  cout << reversals << "\\n";\n  return 0;\n}',
-    'Learning Outcome': 'Understood directed & undirected graph traversal, BFS with 0/1 edge costs, edge reversal concept, and O(N+M) time complexity.',
+    'Procedure/Code': '',
+    'Learning Outcome': '',
   });
 
   // ── Output Blocks State (supports multiple outputs + images) ──────────────

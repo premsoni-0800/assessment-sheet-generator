@@ -146,23 +146,13 @@ export default function SplashScreen({ onDone }) {
               }}
             >
               <div className="social-icon-wrap" style={{
-                width:32, height:32, borderRadius:9,
+                width:36, height:36, borderRadius:10,
                 background: s.bg,
                 display:'flex', alignItems:'center', justifyContent:'center',
                 boxShadow:'0 2px 12px rgba(0,0,0,0.4)',
-                flexShrink:0,
               }}>
                 {s.icon}
               </div>
-              <span className="social-label" style={{
-                fontSize:13,
-                color:'rgba(255,255,255,0.5)',
-                fontFamily:'monospace',
-                transition:'color 0.2s',
-                whiteSpace:'nowrap',
-              }}>
-                {s.label}
-              </span>
             </a>
           ))}
         </div>

@@ -333,10 +333,6 @@ const loadTemplate = (s) => {
             </div>
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-            <Btn variant="ghost" small onClick={() => setShowApiModal(true)}
-              style={{ color: apiKey ? theme.success : theme.muted }}>
-              {apiKey ? '🔑 API Key ✓' : '🔑 Set API Key'}
-            </Btn>
             <Btn variant="ghost" small onClick={() => setStep('editor')}
               style={{ color: step === 'editor' ? theme.accent : theme.muted }}>
               ✏️ Editor
@@ -389,24 +385,6 @@ const loadTemplate = (s) => {
                   ))}
                 </div>
               </SectionCard>
-
-              {/* AI Banner */}
-              <div style={{
-                background: `linear-gradient(135deg, ${theme.accentGlow}, ${theme.goldGlow})`,
-                border: `1px solid ${theme.accent}40`, borderRadius: 12,
-                padding: '12px 18px', display: 'flex', alignItems: 'center',
-                justifyContent: 'space-between', marginBottom: 12,
-              }}>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: 13, color: theme.accent }}>✨ AI Auto-Fill</div>
-                  <div style={{ fontSize: 12, color: theme.muted, marginTop: 2 }}>
-                    Generate all section content automatically based on your Aim
-                  </div>
-                </div>
-                <Btn variant="primary" onClick={aiAutoFill} disabled={!!generating}>
-                  {generating === 'all' ? '⏳ Generating…' : '🤖 Auto-Fill All'}
-                </Btn>
-              </div>
 
               {/* Section Editors */}
               {tpl.sections.map(sec => {
@@ -505,9 +483,6 @@ const loadTemplate = (s) => {
                             : {}}
                         />
                         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 8, gap: 8 }}>
-                          <Btn variant="ghost" small onClick={() => aiEnhance(sec)} disabled={!!generating}>
-                            {generating === sec ? '⏳ Enhancing…' : '✨ AI Enhance'}
-                          </Btn>
                           <Btn variant="ghost" small onClick={() => updateContent(sec, '')}>🗑 Clear</Btn>
                         </div>
                       </>

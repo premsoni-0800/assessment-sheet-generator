@@ -31,7 +31,7 @@ export const ALL_SECTIONS = [
 
 export const TEMPLATES = {
   DAA: {
-    label: "DAA / Algorithms",
+    label: "DAA ",
     university: "Chandigarh University",
     subject: "DAA",
     subjectCode: "24CSH-206",

@@ -224,8 +224,17 @@ export default function App() {
     setSavedTemplates(prev => [...prev, { name, tpl: { ...tpl }, content: { ...sectionContent } }]);
   };
 
-  const loadTemplate = (s) => { setTpl({ ...s.tpl }); setSectionContent({ ...s.content }); };
+const loadTemplate = (s) => {
+  setTpl({ ...s.tpl });
 
+  setSectionContent({
+    aim: s.content?.["Aim"] || "",
+    requirements: s.content?.["Requirements"] || "",
+    code: s.content?.["Procedure/Code"] || "",
+    output: s.content?.["Output"] || "",
+    learning: s.content?.["Learning Outcome"] || ""
+  });
+};
   return (
     <>
       <style>{`

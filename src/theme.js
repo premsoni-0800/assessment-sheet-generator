@@ -24,10 +24,14 @@ export const SIZE_OPTIONS  = [10, 11, 12, 13, 14, 15];
 export const ALIGN_OPTIONS = ["left", "center", "justify"];
 
 // 🔥 Keep only valid + used sections
-export const ALL_SECTIONS = [
+const ALL_SECTIONS = [
   "Aim",
   "Requirements",
+  "Algorithm",
   "Procedure/Code",
+  "Procedure",
+  "SQL Queries",
+  "ER Diagram",
   "Output",
   "Learning Outcome",
   "Conclusion",
@@ -37,7 +41,7 @@ export const ALL_SECTIONS = [
 export const TEMPLATES = {
   CUSTOM: {
     label: "Custom Template",
-    university: "",
+    university: "Chandigarh University",
     subject: "",
     subjectCode: "",
     branch: "",

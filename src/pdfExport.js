@@ -78,35 +78,64 @@ y = HEADER_HEIGHT + 10;
 
   // ═════════ INFO ═════════
   pdf.setFont('helvetica', 'normal');
-  pdf.setFontSize(BASE);
+pdf.setFontSize(BASE);
 
-  const infoRows = [
-    [['Student Name', studentName],  ['UID', uid]],
-    [['Branch', tpl.branch],         ['Section/Group', section]],
-    [['Semester', tpl.semester],     ['Date of Performance', datePerf]],
-    [['Subject Name', tpl.subject],  ['Subject Code', tpl.subjectCode]],
-  ];
+const infoRows = [
+  [['Student Name', studentName],  ['UID', uid]],
+  [['Branch', tpl.branch],         ['Section/Group', section]],
+  [['Semester', tpl.semester],     ['Date of Performance', datePerf]],
+  [['Subject Name', tpl.subject],  ['Subject Code', tpl.subjectCode]],
+];
 
-  const colW = CONTENT_W / 2;
-  const rowH = LINE_H * 1.2;
+const colW = CONTENT_W / 2;
+const rowH = LINE_H * 1.4;
 
-  infoRows.forEach(row => {
-    checkPage(rowH);
-    row.forEach(([label, value], ci) => {
-      const x = MARGIN_X + ci * colW;
+infoRows.forEach(row => {
+  let maxHeight = rowH;
 
-      pdf.setFont('helvetica', 'bold');
-      pdf.text(`${label}: `, x, y);
+  row.forEach(([label, value], ci) => {
+    const x = MARGIN_X + ci * colW;
 
-      const labelW = pdf.getTextWidth(`${label}: `);
+    pdf.setFont('helvetica', 'bold');
+    const labelText = `${label}: `;
+    const labelW = pdf.getTextWidth(labelText);
 
-      pdf.setFont('helvetica', 'normal');
-      pdf.text(String(value || ''), x + labelW, y);
-    });
-    y += rowH;
+    pdf.setFont('helvetica', 'normal');
+    const text = String(value || '');
+
+    const wrapped = pdf.splitTextToSize(text, colW - labelW - 2);
+    const height = wrapped.length * LINE_H;
+
+    if (height > maxHeight) maxHeight = height;
   });
 
-  y += 4;
+  checkPage(maxHeight);
+
+  row.forEach(([label, value], ci) => {
+    const x = MARGIN_X + ci * colW;
+
+    pdf.setFont('helvetica', 'bold');
+    const labelText = `${label}: `;
+    pdf.text(labelText, x, y);
+
+    const labelW = pdf.getTextWidth(labelText);
+
+    pdf.setFont('helvetica', 'normal');
+    const wrapped = pdf.splitTextToSize(String(value || ''), colW - labelW - 2);
+
+    wrapped.forEach((line, i) => {
+      pdf.text(line, x + labelW, y + i * LINE_H);
+    });
+  });
+
+  y += maxHeight;
+
+  // optional divider line
+  pdf.setDrawColor(200);
+  pdf.line(MARGIN_X, y - 2, MARGIN_X + CONTENT_W, y - 2);
+});
+
+y += 4;
 
   // ═════════ SECTIONS ═════════
   tpl.sections.forEach((sec, i) => {

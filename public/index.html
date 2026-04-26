@@ -10,6 +10,60 @@
     />
   </head>
   <body style="margin:0;background:#0d0f14;">
+
+    <!-- SPLASH SCREEN — inside body, before root -->
+    <div id="splash-screen" onclick="dismissSplash()" style="position:fixed;inset:0;z-index:9999;background:#0a0a0f;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;overflow:hidden;cursor:pointer;">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,200,80,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,200,80,.05) 1px,transparent 1px);background-size:40px 40px;"></div>
+      <div style="position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(255,180,50,.15) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+      <div id="splash-scan" style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.6),transparent);"></div>
+
+      <div id="splash-content" style="position:relative;text-align:center;z-index:2;filter:blur(20px);opacity:0;transform:scale(1.07);transition:all 1.2s cubic-bezier(0.22,1,0.36,1);">
+        <div style="width:64px;height:64px;background:linear-gradient(135deg,#f5c842,#e8920a);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px;box-shadow:0 0 40px rgba(240,160,20,.4);">📋</div>
+        <div style="font-size:42px;font-weight:700;color:#fff;letter-spacing:-1px;">Assess<span style="color:#f5c842;">Sheet</span></div>
+        <div style="font-size:11px;letter-spacing:4px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:10px;font-family:monospace;">Automated Assessment Generator</div>
+        <div style="width:48px;height:1px;background:linear-gradient(90deg,transparent,#f5c842,transparent);margin:22px auto;"></div>
+        <button onclick="dismissSplash(event)" style="padding:12px 36px;border:1px solid rgba(245,200,66,.5);color:#f5c842;font-size:13px;letter-spacing:3px;text-transform:uppercase;font-family:monospace;cursor:pointer;background:transparent;border-radius:2px;transition:all .3s ease;" onmouseover="this.style.background='rgba(245,200,66,.1)'" onmouseout="this.style.background='transparent'">Enter</button>
+      </div>
+
+      <a href="https://www.instagram.com/pratham.soni.54/" target="_blank" onclick="event.stopPropagation()" style="position:absolute;bottom:22px;right:24px;display:flex;align-items:center;gap:7px;text-decoration:none;opacity:0;transition:opacity .6s ease;" id="splash-insta">
+        <div style="width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/></svg>
+        </div>
+        <span style="font-size:12px;color:rgba(255,255,255,.45);font-family:monospace;">@pratham.soni.54</span>
+      </a>
+
+      <div id="splash-exit" style="position:absolute;inset:0;background:#0a0a0f;opacity:0;pointer-events:none;transition:opacity .6s ease;"></div>
+    </div>
+
     <div id="root"></div>
+
+    <script>
+      setTimeout(() => {
+        const c = document.getElementById('splash-content');
+        c.style.filter = 'blur(0)';
+        c.style.opacity = '1';
+        c.style.transform = 'scale(1)';
+      }, 300);
+
+      const scan = document.getElementById('splash-scan');
+      let pos = 0;
+      const scanAnim = setInterval(() => {
+        pos += 2;
+        scan.style.top = pos + 'px';
+        if (pos > window.innerHeight) { scan.style.display = 'none'; clearInterval(scanAnim); }
+      }, 8);
+
+      setTimeout(() => {
+        document.getElementById('splash-insta').style.opacity = '1';
+      }, 2200);
+
+      function dismissSplash(e) {
+        if (e) e.stopPropagation();
+        document.getElementById('splash-exit').style.opacity = '1';
+        setTimeout(() => {
+          document.getElementById('splash-screen').style.display = 'none';
+        }, 650);
+      }
+    </script>
   </body>
 </html>

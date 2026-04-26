@@ -30,6 +30,22 @@ export const ALL_SECTIONS = [
 ];
 
 export const TEMPLATES = {
+
+  CUSTOM: {
+    label: "Custom Template",
+    university: "",
+    subject: "",
+    subjectCode: "",
+    branch: "",
+    semester: "",
+    sections: ["Aim", "Procedure", "Code", "Output", "Conclusion"],
+    headingFont: "Playfair Display",
+    bodyFont: "DM Sans",
+    fontSize: 12,
+    align: "left",
+    spacing: 1.5,
+  },
+
   DAA: {
     label: "DAA ",
     university: "Chandigarh University",
@@ -72,18 +88,5 @@ export const TEMPLATES = {
     align: "left",
     spacing: 1.5,
   },
-  CUSTOM: {
-    label: "Custom Template",
-    university: "",
-    subject: "",
-    subjectCode: "",
-    branch: "",
-    semester: "",
-    sections: ["Aim", "Procedure", "Code", "Output", "Conclusion"],
-    headingFont: "Playfair Display",
-    bodyFont: "DM Sans",
-    fontSize: 12,
-    align: "left",
-    spacing: 1.5,
-  },
+  
 };

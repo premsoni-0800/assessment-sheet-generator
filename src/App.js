@@ -10,11 +10,11 @@ export default function App() {
   const [step,         setStep]         = useState('editor');
   const [templateKey,  setTemplateKey]  = useState('DAA');
   const [tpl,          setTpl]          = useState({ ...TEMPLATES.DAA });
-  //const [studentName,  setStudentName]  = useState('Prem');
-  const [uid,          setUid]          = useState('24bcs12219');
-  const [section,      setSection]      = useState('612 A');
-  const [worksheetNo,  setWorksheetNo]  = useState('4');
-  const [datePerf,     setDatePerf]     = useState('02-04-2026');
+  const [studentName,  setStudentName]  = useState('');
+  const [uid,          setUid]          = useState('');
+  const [section,      setSection]      = useState('');
+  const [worksheetNo,  setWorksheetNo]  = useState('');
+  const [datePerf,     setDatePerf]     = useState('');
   const [sectionContent, setSectionContent] = useState({
     Aim: 'To determine the minimum number of edge reversals required in a directed graph so that every node can reach node 1.',
     Requirements: 'Hackerrank, CPP compiler',

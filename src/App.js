@@ -15,16 +15,15 @@ export default function App() {
   const [section,      setSection]      = useState('');
   const [worksheetNo,  setWorksheetNo]  = useState('');
   const [datePerf,     setDatePerf]     = useState('');
-  const [sectionContent, setSectionContent] = useState({
-    Aim: '',
-    Requirements: 'Hackerrank, CPP compiler',
-    'Procedure/Code': '',
-    'Learning Outcome': '',
-  });
-
+const [sectionContent, setSectionContent] = useState({
+  Aim: '',
+  Requirements: 'Hackerrank, CPP compiler',
+  'Procedure/Code': '',
+  'Learning Outcome': '',
+});
   // ── Output Blocks State (supports multiple outputs + images) ──────────────
   const [outputImages, setOutputImages] = useState([
-    { text: '' }
+    { text: 'Input:\n5 4\n1 2\n3 2\n3 4\n5 4\n\nOutput: 2', imageUrl: null, imageName: '' }
   ]);
 
   const [generating,      setGenerating]      = useState(null);

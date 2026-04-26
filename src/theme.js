@@ -20,7 +20,7 @@ export const fonts = {
 };
 
 export const FONT_OPTIONS = ["Times New Roman"];
-export const SIZE_OPTIONS  = [11, 12, 13, 14, 15, 16];
+export const SIZE_OPTIONS  = [10, 11, 12, 13, 14, 15];
 export const ALIGN_OPTIONS = ["left", "center", "justify"];
 
 export const ALL_SECTIONS = [

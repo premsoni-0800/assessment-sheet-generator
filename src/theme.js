@@ -24,8 +24,7 @@ export const SIZE_OPTIONS  = [10, 11, 12, 13, 14, 15];
 export const ALIGN_OPTIONS = ["left", "center", "justify"];
 
 // 🔥 Keep only valid + used sections
-const ALL_SECTIONS = [
-  "Aim",
+export const ALL_SECTIONS = [  "Aim",
   "Requirements",
   "Algorithm",
   "Procedure/Code",

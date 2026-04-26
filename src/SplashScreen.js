@@ -39,7 +39,7 @@ export default function SplashScreen({ onDone }) {
   const socialLinks = [
     {
       href: 'https://www.instagram.com/pratham.soni.54/',
-      label: '@pratham.soni.54',
+      label: 'Instagram',
       icon: (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
           <rect x="2" y="2" width="20" height="20" rx="5"/>
@@ -51,7 +51,7 @@ export default function SplashScreen({ onDone }) {
     },
     {
       href: 'https://www.linkedin.com/in/prem-soni-49b070349/',
-      label: 'Prem Soni',
+      label: 'LinkedIn',
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -63,7 +63,7 @@ export default function SplashScreen({ onDone }) {
     },
     {
       href: 'https://github.com/premsoni-0800',
-      label: 'premsoni-0800',
+      label: 'GitHub',
       icon: (
         <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
@@ -85,9 +85,9 @@ export default function SplashScreen({ onDone }) {
           90%  { opacity:0.4; }
           100% { transform:translateY(-100vh) scale(0); opacity:0; }
         }
-        @keyframes socialSlideIn {
-          from { opacity:0; transform:translateX(16px); }
-          to   { opacity:1; transform:translateX(0); }
+        @keyframes socialPopIn {
+          from { opacity:0; transform:scale(0.7) translateY(6px); }
+          to   { opacity:1; transform:scale(1) translateY(0); }
         }
         .splash-enter-btn:hover {
           border-color: rgba(139,92,246,0.85) !important;
@@ -95,10 +95,13 @@ export default function SplashScreen({ onDone }) {
           transform: translateY(-2px) !important;
           color: #c4b5fd !important;
         }
-        .splash-social-link { text-decoration:none; }
-        .splash-social-link:hover .social-label { color:rgba(255,255,255,0.9) !important; }
-        .splash-social-link:hover .social-icon-wrap { transform:scale(1.1); }
-        .social-icon-wrap { transition: transform 0.2s ease; }
+        .splash-social-icon {
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .splash-social-icon:hover {
+          transform: scale(1.15) translateY(-2px);
+          box-shadow: 0 4px 16px rgba(0,0,0,0.5) !important;
+        }
       `}</style>
 
       <div style={{
@@ -125,11 +128,12 @@ export default function SplashScreen({ onDone }) {
         {/* Particles */}
         <div ref={particleRef} style={{ position:'absolute', inset:0, pointerEvents:'none' }} />
 
-        {/* ── Social links — top right ───────────────────────────────── */}
+        {/* ── Social icons — bottom right ───────────────────────────── */}
         <div style={{
-          position:'absolute', top:22, right:24,
-          display:'flex', flexDirection:'column', gap:12,
+          position:'absolute', bottom:24, right:24,
+          display:'flex', flexDirection:'row', gap:10,
           zIndex:10,
+          alignItems:'center',
         }}>
           {socialLinks.map((s, i) => (
             <a
@@ -137,20 +141,21 @@ export default function SplashScreen({ onDone }) {
               href={s.href}
               target="_blank"
               rel="noreferrer"
-              className="splash-social-link"
+              title={s.label}
               onClick={e => e.stopPropagation()}
-              style={{
-                display:'flex', alignItems:'center', gap:10,
-                opacity: socialShow ? 1 : 0,
-                animation: socialShow ? `socialSlideIn 0.5s ease ${i * 0.12}s both` : 'none',
-              }}
+              style={{ textDecoration:'none' }}
             >
-              <div className="social-icon-wrap" style={{
-                width:36, height:36, borderRadius:10,
-                background: s.bg,
-                display:'flex', alignItems:'center', justifyContent:'center',
-                boxShadow:'0 2px 12px rgba(0,0,0,0.4)',
-              }}>
+              <div
+                className="splash-social-icon"
+                style={{
+                  width:36, height:36, borderRadius:10,
+                  background: s.bg,
+                  display:'flex', alignItems:'center', justifyContent:'center',
+                  boxShadow:'0 2px 12px rgba(0,0,0,0.4)',
+                  opacity: socialShow ? 1 : 0,
+                  animation: socialShow ? `socialPopIn 0.4s ease ${i * 0.1}s both` : 'none',
+                }}
+              >
                 {s.icon}
               </div>
             </a>

@@ -166,8 +166,11 @@ export default function App() {
       updateTpl('subjectCode', template.subjectCode || '');
       updateTpl('branch',      template.branch      || '');
       updateTpl('semester',    template.semester    || '');
-      setSectionContent(template.sectionContent     || {});
-      setShowCloudModal(false);
+      setSectionContent(template.sectionContent || {});
+if (template.sectionContent?.Output) {
+  setOutputImages([{ text: template.sectionContent.Output, imageUrl: null, imageName: '' }]);
+}
+setShowCloudModal(false);
     } catch (err) { alert('Failed to load template.'); }
   };
 

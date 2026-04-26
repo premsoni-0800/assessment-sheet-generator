@@ -297,7 +297,8 @@ const loadTemplate = (s) => {
                     {t.studentName} — {t.subject}
                   </div>
                   <div style={{ fontSize: 11, color: theme.muted, marginTop: 3 }}>
-                    Worksheet {t.worksheetNo} · UID: {t.uid} · {new Date(t.createdAt).toLocaleDateString()}
+                    Worksheet {t.worksheetNo} · UID: {t.uid} · {t.createdAt ? new Date(t.createdAt).toLocaleDateString() : 'No date'}
+
                   </div>
                 </div>
                 <Btn variant="primary" small onClick={() => applyCloudTemplate(t._id)}>Load</Btn>

@@ -6,22 +6,40 @@ import PreviewDoc from './components/PreviewDoc';
 import { exportToPDF } from './pdfExport';
 
 const BACKEND_URL = "https://assessment-sheet-generator-production.up.railway.app";
-export default function App() {
-  const [step,         setStep]         = useState('editor');
-  const [templateKey,  setTemplateKey]  = useState('DAA');
-  const [tpl,          setTpl]          = useState({ ...TEMPLATES.DAA });
-  const [studentName,  setStudentName]  = useState('');
-  const [uid,          setUid]          = useState('');
-  const [section,      setSection]      = useState('');
-  const [worksheetNo,  setWorksheetNo]  = useState('');
-  const [datePerf,     setDatePerf]     = useState('');
-  const [sectionContent, setSectionContent] = useState({
-    Aim: 'To determine the minimum number of edge reversals required in a directed graph so that every node can reach node 1.',
-    Requirements: 'Hackerrank, CPP compiler',
-    'Procedure/Code': '#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n  ios::sync_with_stdio(false);\n  cin.tie(NULL);\n\n  int N, M;\n  cin >> N >> M;\n\n  vector<vector<pair<int,int>>> graph(N + 1);\n  for (int i = 0; i < M; i++) {\n    int u, v;\n    cin >> u >> v;\n    graph[u].push_back({v, 1});\n    graph[v].push_back({u, 0});\n  }\n\n  vector<bool> visited(N + 1, false);\n  queue<int> q;\n  q.push(1);\n  visited[1] = true;\n  int reversals = 0;\n\n  while (!q.empty()) {\n    int node = q.front(); q.pop();\n    for (auto& [nb, cost] : graph[node]) {\n      if (!visited[nb]) {\n        visited[nb] = true;\n        reversals += cost;\n        q.push(nb);\n      }\n    }\n  }\n\n  cout << reversals << "\\n";\n  return 0;\n}',
-    'Learning Outcome': 'Understood directed & undirected graph traversal, BFS with 0/1 edge costs, edge reversal concept, and O(N+M) time complexity.',
-  });
 
+export default function App() {
+
+  // ✅ Always use a safe default template
+  const DEFAULT_TEMPLATE = TEMPLATES.CUSTOM;
+
+  const [step, setStep] = useState('editor');
+
+  // ❌ removed DAA (it was crashing)
+  // ✅ using CUSTOM safely
+  const [templateKey, setTemplateKey] = useState('CUSTOM');
+  const [tpl, setTpl] = useState({ ...DEFAULT_TEMPLATE });
+
+  const [studentName, setStudentName] = useState('');
+  const [uid, setUid] = useState('');
+  const [section, setSection] = useState('');
+  const [worksheetNo, setWorksheetNo] = useState('');
+  const [datePerf, setDatePerf] = useState('');
+
+  // ✅ FULL SAFE + EMPTY section state
+  const defaultSections = {
+    Aim: '',
+    Requirements: '',
+    Algorithm: '',
+    'Procedure/Code': '',
+    Procedure: '',
+    'SQL Queries': '',
+    'ER Diagram': '',
+    Output: '',
+    'Learning Outcome': '',
+    Conclusion: '',
+  };
+
+  const [sectionContent, setSectionContent] = useState(defaultSections);
   // ── Output Blocks State (supports multiple outputs + images) ──────────────
   const [outputImages, setOutputImages] = useState([
     { text: 'Input:\n5 4\n1 2\n3 2\n3 4\n5 4\n\nOutput: 2', imageUrl: null, imageName: '' }

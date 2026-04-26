@@ -40,9 +40,9 @@ export const TEMPLATES = {
     sections: ["Aim", "Requirements", "Procedure/Code", "Output", "Learning Outcome"],
     headingFont: "Playfair Display",
     bodyFont: "DM Sans",
-    fontSize: 13,
+    fontSize: 12,
     align: "left",
-    spacing: 1.6,
+    spacing: 1.5,
   },
   OS: {
     label: "Operating Systems",

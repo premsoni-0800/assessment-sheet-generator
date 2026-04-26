@@ -9,13 +9,9 @@ const BACKEND_URL = "https://assessment-sheet-generator-production.up.railway.ap
 
 export default function App() {
 
-  // ✅ Always use a safe default template
   const DEFAULT_TEMPLATE = TEMPLATES.CUSTOM;
 
   const [step, setStep] = useState('editor');
-
-  // ❌ removed DAA (it was crashing)
-  // ✅ using CUSTOM safely
   const [templateKey, setTemplateKey] = useState('CUSTOM');
   const [tpl, setTpl] = useState({ ...DEFAULT_TEMPLATE });
 
@@ -25,7 +21,6 @@ export default function App() {
   const [worksheetNo, setWorksheetNo] = useState('');
   const [datePerf, setDatePerf] = useState('');
 
-  // ✅ FULL SAFE + EMPTY section state
   const defaultSections = {
     Aim: '',
     Requirements: '',
@@ -40,7 +35,6 @@ export default function App() {
   };
 
   const [sectionContent, setSectionContent] = useState(defaultSections);
-  // ── Output Blocks State (supports multiple outputs + images) ──────────────
   const [outputImages, setOutputImages] = useState([
     { text: '', imageUrl: null, imageName: '' }
   ]);
@@ -60,7 +54,6 @@ export default function App() {
   const updateTpl     = (k, v) => setTpl(prev => ({ ...prev, [k]: v }));
   const updateContent = (sec, val) => setSectionContent(prev => ({ ...prev, [sec]: val }));
 
-  // ── Output Block Handlers ─────────────────────────────────────────────────
   const addOutput = () =>
     setOutputImages(prev => [...prev, { text: '', imageUrl: null, imageName: '' }]);
 
@@ -88,7 +81,6 @@ export default function App() {
       prev.map((o, idx) => idx === i ? { ...o, imageUrl: null, imageName: '' } : o)
     );
 
-  // ── Helpers for PDF/Preview ───────────────────────────────────────────────
   const getFormattedOutputImages = () =>
     outputImages
       .filter(o => o.imageUrl)
@@ -119,7 +111,6 @@ export default function App() {
     setExporting(false);
   };
 
-  // ── Cloud Save ────────────────────────────────────────────────────────────
   const handleSaveToCloud = async () => {
     setCloudSaveStatus('saving');
     try {
@@ -149,7 +140,6 @@ export default function App() {
     }
   };
 
-  // ── Cloud Load ────────────────────────────────────────────────────────────
   const handleLoadFromCloud = async () => {
     try {
       const res  = await fetch(`${BACKEND_URL}/templates`);
@@ -158,7 +148,7 @@ export default function App() {
       setCloudTemplates(data.templates);
       setShowCloudModal(true);
     } catch (err) {
-      alert('Could not connect to backend. Make sure server is running on port 5001.');
+      alert('Could not connect to backend. Make sure server is running.');
     }
   };
 
@@ -181,7 +171,6 @@ export default function App() {
     } catch (err) { alert('Failed to load template.'); }
   };
 
-  // ── AI ────────────────────────────────────────────────────────────────────
   const getHeaders = () => {
     const key = apiKey.trim();
     if (!key) { setShowApiModal(true); return null; }
@@ -234,6 +223,7 @@ export default function App() {
     const name = `Template ${savedTemplates.length + 1} - ${tpl.subject || 'Custom'}`;
     setSavedTemplates(prev => [...prev, { name, tpl: { ...tpl }, content: { ...sectionContent } }]);
   };
+
   const loadTemplate = (s) => { setTpl({ ...s.tpl }); setSectionContent({ ...s.content }); };
 
   return (
@@ -358,10 +348,15 @@ export default function App() {
         {/* ── EDITOR ────────────────────────────────────────────────────────── */}
         {step === 'editor' && (
           <div style={{ display: 'flex', minHeight: 'calc(100vh - 57px)' }}>
+
             <LeftPanel
-              tpl={tpl} updateTpl={updateTpl}
-              templateKey={templateKey} handleTemplateChange={handleTemplateChange}
-              savedTemplates={savedTemplates} saveTemplate={saveTemplate} loadTemplate={loadTemplate}
+              tpl={tpl}
+              updateTpl={updateTpl}
+              templateKey={templateKey}
+              handleTemplateChange={handleTemplateChange}
+              savedTemplates={savedTemplates}
+              saveTemplate={saveTemplate}
+              loadTemplate={loadTemplate}
               onSaveToCloud={handleSaveToCloud}
               cloudSaveStatus={cloudSaveStatus}
             />
@@ -409,9 +404,7 @@ export default function App() {
                 const isOutput = sec.toLowerCase() === 'output';
                 return (
                   <SectionCard key={sec} title={sec}>
-
                     {isOutput ? (
-                      /* ── OUTPUT SECTION: multiple blocks + images ── */
                       <>
                         {outputImages.map((out, i) => (
                           <div key={i} style={{
@@ -419,7 +412,6 @@ export default function App() {
                             background: theme.bg, borderRadius: 10,
                             border: `1px solid ${theme.border}`,
                           }}>
-                            {/* Block header */}
                             <div style={{
                               display: 'flex', justifyContent: 'space-between',
                               alignItems: 'center', marginBottom: 8,
@@ -438,8 +430,6 @@ export default function App() {
                                 }}>✕ Remove</button>
                               )}
                             </div>
-
-                            {/* Text */}
                             <Label>Text / Result</Label>
                             <Input
                               multiline rows={4}
@@ -447,8 +437,6 @@ export default function App() {
                               onChange={v => updateOutputText(i, v)}
                               placeholder="Enter output text, result, terminal output…"
                             />
-
-                            {/* Image */}
                             <div style={{ marginTop: 10 }}>
                               <Label>Screenshot / Image (optional)</Label>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginTop: 4 }}>
@@ -471,7 +459,6 @@ export default function App() {
                                   </span>
                                 )}
                               </div>
-
                               {out.imageUrl && (
                                 <div style={{ marginTop: 10 }}>
                                   <img
@@ -492,15 +479,11 @@ export default function App() {
                             </div>
                           </div>
                         ))}
-
                         <div style={{ marginTop: 4 }}>
-                          <Btn variant="ghost" small onClick={addOutput}>
-                            + Add Output Block
-                          </Btn>
+                          <Btn variant="ghost" small onClick={addOutput}>+ Add Output Block</Btn>
                         </div>
                       </>
                     ) : (
-                      /* ── ALL OTHER SECTIONS ── */
                       <>
                         <Input
                           multiline
@@ -530,6 +513,7 @@ export default function App() {
                 <Btn variant="ghost" onClick={handleLoadFromCloud}>☁️ Load from Cloud</Btn>
                 <Btn variant="gold" onClick={() => setStep('preview')}>👁 Preview & Download →</Btn>
               </div>
+
             </div>
           </div>
         )}
@@ -574,6 +558,7 @@ export default function App() {
             </div>
           </div>
         )}
+
       </div>
     </>
   );

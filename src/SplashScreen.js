@@ -1,17 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export default function SplashScreen({ onDone }) {
-  const [cardReady, setCardReady]   = useState(false);
-  const [instaShow, setInstaShow]   = useState(false);
-  const [leaving,   setLeaving]     = useState(false);
-  const particleRef                 = useRef(null);
+  const [cardReady, setCardReady] = useState(false);
+  const [socialShow, setSocialShow] = useState(false);
+  const [leaving, setLeaving] = useState(false);
+  const particleRef = useRef(null);
 
   useEffect(() => {
-    // Blur-to-clear reveal
-    const t1 = setTimeout(() => setCardReady(true),  200);
-    const t2 = setTimeout(() => setInstaShow(true), 2000);
+    const t1 = setTimeout(() => setCardReady(true), 200);
+    const t2 = setTimeout(() => setSocialShow(true), 1800);
 
-    // Floating particles
     const container = particleRef.current;
     if (container) {
       for (let i = 0; i < 20; i++) {
@@ -38,17 +36,58 @@ export default function SplashScreen({ onDone }) {
     setTimeout(() => onDone(), 800);
   };
 
+  const socialLinks = [
+    {
+      href: 'https://www.instagram.com/pratham.soni.54/',
+      label: '@pratham.soni.54',
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/>
+        </svg>
+      ),
+      bg: 'linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)',
+    },
+    {
+      href: 'https://www.linkedin.com/in/prem-soni-49b070349/',
+      label: 'Prem Soni',
+      icon: (
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      ),
+      bg: '#0a66c2',
+    },
+    {
+      href: 'https://github.com/premsoni-0800',
+      label: 'premsoni-0800',
+      icon: (
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+      ),
+      bg: '#24292e',
+    },
+  ];
+
   return (
     <>
       <style>{`
         @keyframes splashDrift1 { to { transform: translate(40px, 60px); } }
         @keyframes splashDrift2 { to { transform: translate(-50px,-40px); } }
         @keyframes splashDrift3 { to { transform: translate(-30px, 30px); } }
-        @keyframes splashFloat  {
+        @keyframes splashFloat {
           0%   { transform:translateY(0) scale(1); opacity:0; }
           10%  { opacity:1; }
           90%  { opacity:0.4; }
           100% { transform:translateY(-100vh) scale(0); opacity:0; }
+        }
+        @keyframes socialSlideIn {
+          from { opacity:0; transform:translateX(16px); }
+          to   { opacity:1; transform:translateX(0); }
         }
         .splash-enter-btn:hover {
           border-color: rgba(139,92,246,0.85) !important;
@@ -56,17 +95,19 @@ export default function SplashScreen({ onDone }) {
           transform: translateY(-2px) !important;
           color: #c4b5fd !important;
         }
-        .splash-insta:hover span { color: rgba(255,255,255,0.85) !important; }
+        .splash-social-link { text-decoration:none; }
+        .splash-social-link:hover .social-label { color:rgba(255,255,255,0.9) !important; }
+        .splash-social-link:hover .social-icon-wrap { transform:scale(1.1); }
+        .social-icon-wrap { transition: transform 0.2s ease; }
       `}</style>
 
-      {/* ── Root overlay ──────────────────────────────────────────────────── */}
       <div style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        background: '#080b12',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        overflow: 'hidden',
+        position:'fixed', inset:0, zIndex:9999,
+        background:'#080b12',
+        display:'flex', alignItems:'center', justifyContent:'center',
+        overflow:'hidden',
         opacity: leaving ? 0 : 1,
-        transition: 'opacity 0.75s ease',
+        transition:'opacity 0.75s ease',
         pointerEvents: leaving ? 'none' : 'auto',
       }}>
 
@@ -81,25 +122,66 @@ export default function SplashScreen({ onDone }) {
           background:'radial-gradient(circle,rgba(59,130,246,0.12) 0%,transparent 65%)',
           top:'40%', left:'55%', animation:'splashDrift3 12s ease-in-out infinite alternate' }} />
 
-        {/* Particles container */}
+        {/* Particles */}
         <div ref={particleRef} style={{ position:'absolute', inset:0, pointerEvents:'none' }} />
 
-        {/* Glass card — blurs in */}
+        {/* ── Social links — top right ───────────────────────────────── */}
         <div style={{
-          position: 'relative', zIndex: 3,
-          textAlign: 'center',
-          padding: '52px 64px 48px',
-          background: 'rgba(255,255,255,0.03)',
-          border: '1px solid rgba(255,255,255,0.08)',
-          borderRadius: 24,
-          backdropFilter: 'blur(40px)',
-          WebkitBackdropFilter: 'blur(40px)',
-          maxWidth: 420, width: '90%',
-          // blur reveal
-          filter:    cardReady ? 'blur(0) saturate(1)'          : 'blur(22px) saturate(0.4)',
-          opacity:   cardReady ? 1                               : 0,
-          transform: cardReady ? 'scale(1) translateY(0)'       : 'scale(0.96) translateY(14px)',
-          transition: 'filter 1.5s cubic-bezier(0.16,1,0.3,1), opacity 1.5s cubic-bezier(0.16,1,0.3,1), transform 1.5s cubic-bezier(0.16,1,0.3,1)',
+          position:'absolute', top:22, right:24,
+          display:'flex', flexDirection:'column', gap:12,
+          zIndex:10,
+        }}>
+          {socialLinks.map((s, i) => (
+            <a
+              key={i}
+              href={s.href}
+              target="_blank"
+              rel="noreferrer"
+              className="splash-social-link"
+              onClick={e => e.stopPropagation()}
+              style={{
+                display:'flex', alignItems:'center', gap:10,
+                opacity: socialShow ? 1 : 0,
+                animation: socialShow ? `socialSlideIn 0.5s ease ${i * 0.12}s both` : 'none',
+              }}
+            >
+              <div className="social-icon-wrap" style={{
+                width:32, height:32, borderRadius:9,
+                background: s.bg,
+                display:'flex', alignItems:'center', justifyContent:'center',
+                boxShadow:'0 2px 12px rgba(0,0,0,0.4)',
+                flexShrink:0,
+              }}>
+                {s.icon}
+              </div>
+              <span className="social-label" style={{
+                fontSize:13,
+                color:'rgba(255,255,255,0.5)',
+                fontFamily:'monospace',
+                transition:'color 0.2s',
+                whiteSpace:'nowrap',
+              }}>
+                {s.label}
+              </span>
+            </a>
+          ))}
+        </div>
+
+        {/* ── Glass card ────────────────────────────────────────────── */}
+        <div style={{
+          position:'relative', zIndex:3,
+          textAlign:'center',
+          padding:'52px 64px 48px',
+          background:'rgba(255,255,255,0.03)',
+          border:'1px solid rgba(255,255,255,0.08)',
+          borderRadius:24,
+          backdropFilter:'blur(40px)',
+          WebkitBackdropFilter:'blur(40px)',
+          maxWidth:420, width:'90%',
+          filter:    cardReady ? 'blur(0) saturate(1)'      : 'blur(22px) saturate(0.4)',
+          opacity:   cardReady ? 1                          : 0,
+          transform: cardReady ? 'scale(1) translateY(0)'  : 'scale(0.96) translateY(14px)',
+          transition:'filter 1.5s cubic-bezier(0.16,1,0.3,1), opacity 1.5s cubic-bezier(0.16,1,0.3,1), transform 1.5s cubic-bezier(0.16,1,0.3,1)',
         }}>
 
           {/* Logo */}
@@ -112,7 +194,7 @@ export default function SplashScreen({ onDone }) {
             fontSize:26, fontWeight:700, color:'#fff', fontFamily:'Georgia,serif',
           }}>A</div>
 
-          {/* Brand name */}
+          {/* Brand */}
           <div style={{ fontSize:38, fontWeight:700, color:'#fff', letterSpacing:'-1.5px', fontFamily:'Georgia,serif', lineHeight:1, marginBottom:8 }}>
             Assess
             <span style={{ background:'linear-gradient(135deg,#a78bfa,#818cf8)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
@@ -125,7 +207,7 @@ export default function SplashScreen({ onDone }) {
             Assessment Generator
           </div>
 
-          {/* Divider line */}
+          {/* Divider */}
           <div style={{ width:1, height:32, background:'linear-gradient(to bottom,transparent,rgba(255,255,255,0.18),transparent)', margin:'0 auto 34px' }} />
 
           {/* Enter button */}
@@ -150,38 +232,6 @@ export default function SplashScreen({ onDone }) {
             </svg>
           </button>
         </div>
-
-        {/* Instagram tag */}
-        <a
-          className="splash-insta"
-          href="https://www.instagram.com/pratham.soni.54/"
-          target="_blank"
-          rel="noreferrer"
-          onClick={e => e.stopPropagation()}
-          style={{
-            position:'absolute', bottom:22, right:24,
-            display:'flex', alignItems:'center', gap:8,
-            textDecoration:'none', zIndex:10,
-            opacity: instaShow ? 1 : 0,
-            transform: instaShow ? 'translateY(0)' : 'translateY(8px)',
-            transition:'opacity 0.6s ease, transform 0.6s ease',
-          }}
-        >
-          <div style={{
-            width:24, height:24, borderRadius:7,
-            background:'linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)',
-            display:'flex', alignItems:'center', justifyContent:'center',
-          }}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
-              <rect x="2" y="2" width="20" height="20" rx="5"/>
-              <circle cx="12" cy="12" r="5"/>
-              <circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/>
-            </svg>
-          </div>
-          <span style={{ fontSize:11.5, color:'rgba(255,255,255,0.36)', fontFamily:'monospace', transition:'color 0.2s' }}>
-            @pratham.soni.54
-          </span>
-        </a>
 
       </div>
     </>

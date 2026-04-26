@@ -93,7 +93,7 @@ const PreviewDoc = React.forwardRef(function PreviewDoc(
                 fontSize: `${tpl.fontSize + 1}pt`,
                 fontWeight: 700,
                 marginBottom: 4,
-                borderBottom: '1px solid #ddd',
+                //borderBottom: '1px solid #ddd',
                 paddingBottom: 2,
               }}
             >

@@ -24,7 +24,7 @@ export default function App() {
 
   // ── Output Blocks State (supports multiple outputs + images) ──────────────
   const [outputImages, setOutputImages] = useState([
-    { text: 'Input:\n5 4\n1 2\n3 2\n3 4\n5 4\n\nOutput: 2', imageUrl: null, imageName: '' }
+    { text: '' }
   ]);
 
   const [generating,      setGenerating]      = useState(null);

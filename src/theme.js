@@ -23,14 +23,18 @@ export const FONT_OPTIONS = ["Times New Roman"];
 export const SIZE_OPTIONS  = [10, 11, 12, 13, 14, 15];
 export const ALIGN_OPTIONS = ["left", "center", "justify"];
 
+// 🔥 Keep only valid + used sections
 export const ALL_SECTIONS = [
-  "Aim", "Requirements", "Algorithm", "Procedure/Code",
-  "Procedure", "SQL Queries", "ER Diagram",
-  "Output", "Learning Outcome", "Conclusion",
+  "Aim",
+  "Requirements",
+  "Procedure/Code",
+  "Output",
+  "Learning Outcome",
+  "Conclusion",
 ];
 
+// ✅ FIXED TEMPLATE
 export const TEMPLATES = {
-
   CUSTOM: {
     label: "Custom Template",
     university: "",
@@ -38,12 +42,22 @@ export const TEMPLATES = {
     subjectCode: "",
     branch: "",
     semester: "",
-    sections: ["Aim","Requirements", "Procedure", "Code", "Output", "Learning Outcome"],
-    headingFont: "Playfair Display",
-    bodyFont: "DM Sans",
+    
+    // ❌ removed "Code"
+    // ❌ removed unused mismatched sections
+    sections: [
+      "Aim",
+      "Requirements",
+      "Procedure/Code",
+      "Output",
+      "Learning Outcome",
+      "Conclusion"
+    ],
+
+    headingFont: "Times New Roman",
+    bodyFont: "Times New Roman",
     fontSize: 12,
     align: "left",
     spacing: 1.5,
-  },
-  
+  }
 };

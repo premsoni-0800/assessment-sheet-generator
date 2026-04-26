@@ -223,7 +223,7 @@ export default function App() {
     const name = `Template ${savedTemplates.length + 1} - ${tpl.subject || 'Custom'}`;
     setSavedTemplates(prev => [...prev, { name, tpl: { ...tpl }, content: { ...sectionContent } }]);
   };
-
+console.log(s.content);
 const loadTemplate = (s) => {
   setTpl({ ...s.tpl });
 

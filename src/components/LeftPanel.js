@@ -7,7 +7,6 @@ export default function LeftPanel({
   updateTpl,
   templateKey,
   handleTemplateChange,
-  onLoadFromCloud
 }) {
   return (
     <div style={{
@@ -124,18 +123,6 @@ export default function LeftPanel({
             <span style={{ fontSize: 12, color: theme.muted }}>{sec}</span>
           </label>
         ))}
-      </SectionCard>
-
-      {/* ── Load From Cloud ONLY ── */}
-      <SectionCard title="☁️ Cloud">
-        <Btn
-          variant="primary"
-          small
-          onClick={onLoadFromCloud}
-          style={{ width: '100%' }}
-        >
-          ☁️ Load from Cloud
-        </Btn>
       </SectionCard>
 
     </div>

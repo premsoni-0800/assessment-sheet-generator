@@ -41,7 +41,7 @@ export default function SplashScreen({ onDone }) {
       href: 'https://www.instagram.com/pratham.soni.54/',
       label: 'Instagram',
       icon: (
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round">
           <rect x="2" y="2" width="20" height="20" rx="5"/>
           <circle cx="12" cy="12" r="5"/>
           <circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none"/>
@@ -53,7 +53,7 @@ export default function SplashScreen({ onDone }) {
       href: 'https://www.linkedin.com/in/prem-soni-49b070349/',
       label: 'LinkedIn',
       icon: (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
           <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
           <rect x="2" y="9" width="4" height="12"/>
           <circle cx="4" cy="4" r="2"/>
@@ -65,7 +65,7 @@ export default function SplashScreen({ onDone }) {
       href: 'https://github.com/premsoni-0800',
       label: 'GitHub',
       icon: (
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
           <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
         </svg>
       ),
@@ -86,7 +86,7 @@ export default function SplashScreen({ onDone }) {
           100% { transform:translateY(-100vh) scale(0); opacity:0; }
         }
         @keyframes socialPopIn {
-          from { opacity:0; transform:scale(0.7) translateY(6px); }
+          from { opacity:0; transform:scale(0.6) translateY(-6px); }
           to   { opacity:1; transform:scale(1) translateY(0); }
         }
         .splash-enter-btn:hover {
@@ -97,10 +97,11 @@ export default function SplashScreen({ onDone }) {
         }
         .splash-social-icon {
           transition: transform 0.2s ease, box-shadow 0.2s ease;
+          display:flex; align-items:center; justify-content:center;
         }
         .splash-social-icon:hover {
-          transform: scale(1.15) translateY(-2px);
-          box-shadow: 0 4px 16px rgba(0,0,0,0.5) !important;
+          transform: scale(1.18) translateY(-2px) !important;
+          box-shadow: 0 6px 20px rgba(0,0,0,0.55) !important;
         }
       `}</style>
 
@@ -128,10 +129,14 @@ export default function SplashScreen({ onDone }) {
         {/* Particles */}
         <div ref={particleRef} style={{ position:'absolute', inset:0, pointerEvents:'none' }} />
 
-        {/* ── Social icons — bottom right ───────────────────────────── */}
+        {/* TOP RIGHT — Social icons */}
         <div style={{
-          position:'absolute', bottom:24, right:24,
-          display:'flex', flexDirection:'row', gap:10,
+          position:'absolute',
+          top:24,
+          right:24,
+          display:'flex',
+          flexDirection:'row',
+          gap:12,
           zIndex:10,
           alignItems:'center',
         }}>
@@ -148,12 +153,11 @@ export default function SplashScreen({ onDone }) {
               <div
                 className="splash-social-icon"
                 style={{
-                  width:36, height:36, borderRadius:10,
+                  width:38, height:38, borderRadius:11,
                   background: s.bg,
-                  display:'flex', alignItems:'center', justifyContent:'center',
-                  boxShadow:'0 2px 12px rgba(0,0,0,0.4)',
+                  boxShadow:'0 2px 14px rgba(0,0,0,0.45)',
                   opacity: socialShow ? 1 : 0,
-                  animation: socialShow ? `socialPopIn 0.4s ease ${i * 0.1}s both` : 'none',
+                  animation: socialShow ? `socialPopIn 0.45s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.12}s both` : 'none',
                 }}
               >
                 {s.icon}
@@ -162,7 +166,7 @@ export default function SplashScreen({ onDone }) {
           ))}
         </div>
 
-        {/* ── Glass card ────────────────────────────────────────────── */}
+        {/* Glass card */}
         <div style={{
           position:'relative', zIndex:3,
           textAlign:'center',
@@ -179,7 +183,6 @@ export default function SplashScreen({ onDone }) {
           transition:'filter 1.5s cubic-bezier(0.16,1,0.3,1), opacity 1.5s cubic-bezier(0.16,1,0.3,1), transform 1.5s cubic-bezier(0.16,1,0.3,1)',
         }}>
 
-          {/* Logo */}
           <div style={{
             width:72, height:72, borderRadius:20, margin:'0 auto 24px',
             background:'linear-gradient(135deg,rgba(139,92,246,0.85),rgba(99,102,241,0.85))',
@@ -189,7 +192,6 @@ export default function SplashScreen({ onDone }) {
             fontSize:26, fontWeight:700, color:'#fff', fontFamily:'Georgia,serif',
           }}>A</div>
 
-          {/* Brand */}
           <div style={{ fontSize:38, fontWeight:700, color:'#fff', letterSpacing:'-1.5px', fontFamily:'Georgia,serif', lineHeight:1, marginBottom:8 }}>
             Assess
             <span style={{ background:'linear-gradient(135deg,#a78bfa,#818cf8)', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text' }}>
@@ -197,15 +199,12 @@ export default function SplashScreen({ onDone }) {
             </span>
           </div>
 
-          {/* Tagline */}
           <div style={{ fontSize:10, letterSpacing:'3.5px', color:'rgba(255,255,255,0.28)', textTransform:'uppercase', fontFamily:'monospace', marginBottom:34 }}>
             Assessment Generator
           </div>
 
-          {/* Divider */}
           <div style={{ width:1, height:32, background:'linear-gradient(to bottom,transparent,rgba(255,255,255,0.18),transparent)', margin:'0 auto 34px' }} />
 
-          {/* Enter button */}
           <button
             className="splash-enter-btn"
             onClick={handleEnter}
